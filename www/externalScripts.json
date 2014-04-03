@@ -1,0 +1,4 @@
+[
+    "public_src/libs/bower_components/angular/angular.min.js",
+    "public_src/libs/bower_components/angular-route/angular-route.min.js"
+]
