@@ -17,9 +17,9 @@ httpApp.use(httpApp.router);
 httpApp.use(express.static(__dirname + '/public'));
 
 // include all controllers
-fs.readdirSync('./routes/controllers').forEach(function (file) {
+fs.readdirSync(__dirname + '/routes/controllers').forEach(function (file) {
   if(file.substr(-3) == '.js') {
-      route = require('./routes/controllers/' + file);
+      route = require(__dirname + '/routes/controllers/' + file);
       route.controller(httpApp);
   }
 });
