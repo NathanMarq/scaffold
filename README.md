@@ -19,7 +19,6 @@
 
 * Node v0.10.26
 	* Express
-	* Forever
 
 These are all installed when you run the bootstrap file. Specific versions of the node modules can be found in the www/package.json file.
 
@@ -55,3 +54,11 @@ Versions of all of these can be found in the package.json file and the bower.jso
 ** Run grunt watch for live editing/minification: **
 
 `grunt watch`
+
+### About the Server ###
+
+The node Express server will run as a daemon, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
+
+It is kept running using Monit, which will keep it running through errors and problems (see nodeservermonit.conf for more info)
+
+Both of these were from the tutorial [HERE](http://howtonode.org/deploying-node-upstart-monit)
