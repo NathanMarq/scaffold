@@ -55,6 +55,12 @@ Versions of all of these can be found in the package.json file and the bower.jso
 
 `grunt watch`
 
+### Live Deployment ###
+
+For the live versions of the bootstrap and config files, look in the livescripts directory.
+
+The .conf files should go into the /var directory, and the bootstrap.sh file should be in the /var/www directory.
+
 ### About the Server ###
 
 The node Express server will run as a daemon, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
