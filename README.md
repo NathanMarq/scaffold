@@ -62,3 +62,9 @@ The node Express server will run as a daemon, and will restart after reboot usin
 It is kept running using Monit, which will keep it running through errors and problems (see nodeservermonit.conf for more info)
 
 Both of these were from the tutorial [HERE](http://howtonode.org/deploying-node-upstart-monit)
+
+
+## @TODO: ##
+
+* add a Monit Cronjob to run periodically, to make sure Monit stays running
+* add some way to restart the server automatically when server files are changed
