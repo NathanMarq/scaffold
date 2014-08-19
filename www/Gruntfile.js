@@ -100,7 +100,7 @@ module.exports = function(grunt) {
                 tasks: ['less']
             },
             html: {
-                files: ['index.html', 'public/views/**/*.html'],
+                files: ['public/index.html', 'public/views/**/*.html'],
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
