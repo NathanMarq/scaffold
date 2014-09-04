@@ -1,7 +1,4 @@
-# SAMPLE NODE ANGULAR WEBAPP #
-
-### Based off of [John Longanecker's Angular Skeleton](https://github.com/jlongnbt/angular-skeleton "jlongnbt repo") ###
-#### ALL the grunt magic credit goes to him. ####
+# STARTER NODE/EXPRESS/ANGULAR WEBAPP #
 
 ## System Configs ##
 
@@ -13,16 +10,16 @@
 * Grunt v0.1.13
 * Bower version 1.2.8
 
-* Uses Grunt Watch functionality, which can be fully appreciated with the [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/details) plugin in Chrome
+* Uses Grunt Watch, which can be fully appreciated with the [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/details) plugin in Chrome
 
-**Server Side Requirements:**
+**Server Side Dependencies:**
 
 * Node v0.10.26
 	* Express
 
 These are all installed when you run the bootstrap file. Specific versions of the node modules can be found in the www/package.json file.
 
-**Front End Requirements:**
+**Front End Dependencies:**
 * AngularJS
 
 Versions of all of these can be found in the package.json file and the bower.json file.
@@ -50,10 +47,21 @@ Versions of all of these can be found in the package.json file and the bower.jso
 `cd ../../`
 
 `grunt build`
-	
+
 ** Run grunt watch for live editing/minification: **
 
 `grunt watch`
+
+### Server Editing ###
+
+Keep in mind that changes made on the server require server restarts, so Node can reload the changes:
+
+`sudo stop nodeserver`
+
+`sudo start nodeserver`
+
+Error logs can be found here: `/var/log/nodeserver.sys.log`
+
 
 ### Live Deployment ###
 
@@ -63,12 +71,13 @@ The .conf files should go into the /var directory, and the bootstrap.sh file sho
 
 ### About the Server ###
 
-The node Express server will run as a daemon, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
+The node Express server will run as a daemon script, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
 
 It is kept running using Monit, which will keep it running through errors and problems (see nodeservermonit.conf for more info)
 
-Both of these were from the tutorial [HERE](http://howtonode.org/deploying-node-upstart-monit)
-
+###Credits:###
+* Originally based off of [John Longanecker's Angular Skeleton](https://github.com/jlongnbt/angular-skeleton "jlongnbt repo")
+* Monit and Upstart setup based off of the tutorial [HERE](http://howtonode.org/deploying-node-upstart-monit)
 
 ## @TODO: ##
 

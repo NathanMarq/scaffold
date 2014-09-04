@@ -17,31 +17,17 @@ module.exports = function(grunt) {
                 files: { "public/styles/app.css" : externalStyleFiles.concat('public_src/styles/main.less') }
             }
         },
-        ngmin: {
-            externalScripts: {
-                files: {
-                    "grunt_tmp/externalScripts.js" : externalScriptFiles
-                }
-            },
-            mainScript: {
-                files: {
-                    "grunt_tmp/main.js": "public_src/scripts/main.js"
-                }
-            },
-            controllers: {
-                files: {
-                    "grunt_tmp/controllers.js": "public_src/scripts/controllers/**/*.js"
-                }
-            },
-            services: {
-                files: {
-                    "grunt_tmp/services.js" : "public_src/scripts/services/**/*.js"
-                }
-            },
-            directives: {
-                files: {
-                    "grunt_tmp/directives.js" : "public_src/scripts/directives/**/*.js"
-                }
+        ngAnnotate: {
+            main: {
+              files: {
+                'grunt_tmp/angularScripts.js' : [
+                  'public_src/scripts/main.js',
+                  'public_src/scripts/controllers/*.js',
+                  'public_src/scripts/services/*.js',
+                  'public_src/scripts/filters/*.js',
+                  'public_src/scripts/directives/*.js'
+                ]
+              }
             }
         },
         uglify: {
@@ -49,43 +35,25 @@ module.exports = function(grunt) {
                 report: 'min',
                 mangle: true,
             },
-            externalScripts: {
-                files: {
-                    "grunt_tmp/externalScripts.min.js" : "grunt_tmp/externalScripts.js"
-                }
-            },
-            mainScript: {
-                files: {
-                    "grunt_tmp/main.min.js" : "grunt_tmp/main.js"
-                }
-            },
-            controllers: {
-                files: {
-                    "grunt_tmp/controllers.min.js" : "grunt_tmp/controllers.js"
-                }
-            },
-            services: {
-                files: {
-                    "grunt_tmp/services.min.js" : "grunt_tmp/services.js"
-                }
-            },
-            directives: {
-                files: {
-                    "grunt_tmp/directives.min.js" : "grunt_tmp/directives.js"
-                }
+            main: {
+              files: {
+                'public/scripts/app.js' : ['public/scripts/app.js'],
+              }
             }
         },
         concat: {
-            dist: {
-                files: {
-                    'public/scripts/app.js': [
-                        'grunt_tmp/externalScripts.min.js',
-                        'grunt_tmp/main.min.js',
-                        'grunt_tmp/controllers.min.js',
-                        'grunt_tmp/services.min.js',
-                        'grunt_tmp/directives.min.js'
-                    ]
-                }
+            libs: {
+                src: externalScriptFiles,
+                dest: 'grunt_tmp/externalScripts.js',
+                nonull: true
+            },
+            app: {
+                src: [
+                    'grunt_tmp/externalScripts.js',
+                    'grunt_tmp/angularScripts.js'
+                ],
+                dest: 'public/scripts/app.js',
+                nonull: true
             }
         },
         clean: {
@@ -100,28 +68,32 @@ module.exports = function(grunt) {
                 tasks: ['less']
             },
             html: {
-                files: ['public/index.html', 'public/views/**/*.html'],
+                files: ['public/index.html', 'public/views/**/*.html']
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['ngmin:mainScript', 'uglify:mainScript', 'concat'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['ngmin:controllers', 'uglify:controllers', 'concat'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
             },
             services: {
                 files: ['public_src/scripts/services/*.js'],
-                tasks: ['ngmin:services', 'uglify:services', 'concat'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+            },
+            filters: {
+                files: ['public_src/scripts/filters/*.js'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['ngmin:directives', 'uglify:directives', 'concat'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
             }
         },
     });
 
-    grunt.loadNpmTasks('grunt-ngmin');
+    grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -129,6 +101,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean', 'less', 'ngmin', 'uglify', 'concat']);
+    grunt.registerTask('build', ['clean', 'less', 'concat:libs', 'ngAnnotate', 'concat:app', 'uglify']);
 
 };
