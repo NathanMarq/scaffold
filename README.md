@@ -1,6 +1,6 @@
-# STARTER NODE/EXPRESS/ANGULAR WEBAPP #
+## STARTER NODE/EXPRESS/ANGULAR WEBAPP ##
 
-## System Configs ##
+### System Configs ###
 
 **Created and Tested With:**
 
@@ -26,7 +26,7 @@ Versions of all of these can be found in the package.json file and the bower.jso
 
 ### Getting Started ###
 
-**To run this VM, you MUST have Vagrant installed.**
+**To run this VM, you MUST have Vagrant installed.* **
 
 **After cloning the repo, start up the Vagrant box:**
 
@@ -48,9 +48,13 @@ Versions of all of these can be found in the package.json file and the bower.jso
 
 `grunt build`
 
+Navigate to `http://localhost:8082` in your browser to see the action!
+
 ** Run grunt watch for live editing/minification: **
 
 `grunt watch`
+
+*Actually, you don't need Vagrant. As an alternative, you can run the live versions of the bootstrap and setup confs(found in the livescripts directory) in your Debain-based server environment.
 
 ### Server Editing ###
 
