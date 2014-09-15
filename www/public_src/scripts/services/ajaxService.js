@@ -7,12 +7,6 @@ angular.module('wwwApp')
                                 .then(function(result){
                                     return result.data;
                                 });
-                },
-                getAppContent : function() {
-                    return $http.get('/api/getData/content')
-                                .then(function(result){
-                                    return result.data;
-                                });
                 }
             };
     });

@@ -5,20 +5,40 @@
 }
 
 /* Small screens (default) */
-html { font-size: 100%; }
+html {
+  font-size: 100%;
+  font-family: 'Open Sans';
+  color: @defaultText;
+}
+
+h1{
+  font-weight: 300;
+}
+
+h2{
+  font-weight: 300;
+}
+
+h3{
+  font-weight: 300;
+}
 
 .clearfix:before,
 .clearfix:after {
   content: " ";
   display: table;
 }
- 
+
 .clearfix:after {
   clear: both;
 }
- 
+
 .clearfix {
   *zoom: 1;
+}
+
+.center {
+  text-align: center;
 }
 
 /******************************
@@ -31,22 +51,22 @@ html { font-size: 100%; }
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   .column.full { width: 100%; }
   .column.two-thirds { width: 66.7%; }
   .column.half { width: 50%; }
   .column.third { width: 33.3%; }
   .column.fourth { width: 24.95%; }
   .column.three-fourths { width: 74.95%; }
-  .column.flow-opposite { float: right; }  
+  .column.flow-opposite { float: right; }
 }
 
 /* Medium screens (640px) */
-@media (min-width: 40rem) { 
+@media (min-width: 40rem) {
   html { font-size: 112%; }
 }
- 
+
 /* Large screens (1024px) */
-@media (min-width: 64rem) { 
+@media (min-width: 64rem) {
   html { font-size: 120%; }
 }

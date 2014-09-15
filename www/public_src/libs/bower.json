@@ -14,7 +14,7 @@
   "devDependencies": {
   },
   "dependencies": {
-    "angular": "~1.2.13",
-    "angular-route": "~1.2.13"
+    "angular": "~1.2.24",
+    "angular-route": "~1.2.24"
   }
 }
