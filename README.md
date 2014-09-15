@@ -26,7 +26,7 @@ Versions of all of these can be found in the package.json file and the bower.jso
 
 ### Getting Started ###
 
-**To run this VM, you should have Vagrant installed. It makes things easier. **
+**To run this VM, you should have Vagrant installed. It makes things easier.**
 
 As an alternative, you can run the live versions of the bootstrap and setup confs(found in the livescripts directory) in your Ubuntu server environment.
 
@@ -52,7 +52,7 @@ As an alternative, you can run the live versions of the bootstrap and setup conf
 
 Navigate to `http://localhost:8082` in your browser to see the action!
 
-** Run grunt watch for live editing/minification: **
+**Run grunt watch for live editing/minification:**
 
 `grunt watch`
 
