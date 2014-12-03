@@ -59,9 +59,23 @@ module.exports = function(grunt) {
         clean: {
             files: ['grunt_tmp/']
         },
+        // use tape to define our tests
+        // this is mostly for the back-end code.
+        // Front-end code is all handled by testling.
+        // Testling settings can be found in the package.json file.
+        tape: {
+            options: {
+              pretty: true,
+              output: 'console'
+            },
+            files: [
+                      'routes/tests/**/*.js'
+            ]
+        },
         watch: {
             options: {
-                livereload: true
+                livereload: true,
+                spawn: false
             },
             less: {
                 files: ['public_src/styles/**/*.less'],
@@ -72,23 +86,34 @@ module.exports = function(grunt) {
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
             },
             services: {
                 files: ['public_src/scripts/services/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+            },
+            // watch front-end code:
+            ngTests: {
+              files: ['public_src/tests/**/*.js'],
+              tasks: ['browserify:tape', 'testling']
+            },
+
+            // watch back-end code:
+            nodeTests: {
+                files: ['server.js', 'routes/**/*.js', 'routes/tests/**/*.js'],
+                tasks: ['tape']
             }
         },
     });
@@ -99,6 +124,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-tape');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-testling');
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('build', ['clean', 'less', 'concat:libs', 'ngAnnotate', 'concat:app', 'uglify']);

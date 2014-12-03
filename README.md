@@ -67,6 +67,16 @@ Keep in mind that changes made on the server require server restarts, so Node ca
 Error logs can be found here: `/var/log/nodeserver.sys.log`
 
 
+### Testing ###
+
+Tests are written using Tape for both server-side and front-end code.
+
+Server/Node tests are in the www/routes/tests directory.
+
+Front-end (Angular) tests are located in the www/public_src/tests directory.
+
+Tests are all included in the Gruntfile and will be run every time an appropriate file is changed.
+
 ### Live Deployment ###
 
 For the live versions of the bootstrap and config files, look in the livescripts directory.

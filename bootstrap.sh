@@ -39,4 +39,4 @@ sudo chmod 700 /etc/monit/conf.d/nodeservermonit.conf
 sudo start nodeserver
 
 # start monit for error checking
-sudo monit -d 60 -c /etc/monit/conf.d/nodeservermonit.conf
+sudo monit -d 10 -c /etc/monit/conf.d/nodeservermonit.conf
