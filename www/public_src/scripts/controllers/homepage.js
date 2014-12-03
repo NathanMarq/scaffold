@@ -1,5 +1,5 @@
 angular.module('wwwApp')
-    .controller('HomepageCtrl', function($scope, ajaxService) {
+    .controller('HomepageCtrl', function($scope, ajaxFactory) {
 
         $scope.headerSize = null;
         $scope.subTitleSize = null;

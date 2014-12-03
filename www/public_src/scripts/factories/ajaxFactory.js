@@ -1,5 +1,5 @@
 angular.module('wwwApp')
-    .service('ajaxService', function($http) {
+    .factory('ajaxFactory', function($http) {
 
             return {
                 getAppTitle : function() {

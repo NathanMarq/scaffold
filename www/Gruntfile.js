@@ -69,7 +69,7 @@ module.exports = function(grunt) {
               output: 'console'
             },
             files: [
-                      'routes/tests/**/*.js'
+                      'tests/routes/**/*.js'
             ]
         },
         watch: {
@@ -86,33 +86,33 @@ module.exports = function(grunt) {
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             services: {
                 files: ['public_src/scripts/services/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'browserify:tape', 'testling']
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             // watch front-end code:
             ngTests: {
-              files: ['public_src/tests/**/*.js'],
-              tasks: ['browserify:tape', 'testling']
+              files: ['tests/public_src/**/*.js'],
+              tasks: ['testling']
             },
 
             // watch back-end code:
             nodeTests: {
-                files: ['server.js', 'routes/**/*.js', 'routes/tests/**/*.js'],
+                files: ['server.js', 'routes/**/*.js', 'tests/routes/**/*.js'],
                 tasks: ['tape']
             }
         },

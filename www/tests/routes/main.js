@@ -12,9 +12,9 @@ fs = require('fs');
 testServer.set('port', 73575);
 
 // include all controllers - taken straight from regular server setup
-fs.readdirSync(__dirname + '/../controllers/').forEach(function (file) {
+fs.readdirSync(__dirname + '/../../routes/controllers/').forEach(function (file) {
   if(file.substr(-3) == '.js') {
-    route = require(__dirname + '/../controllers/' + file);
+    route = require(__dirname + '/../../routes/controllers/' + file);
     route.controller(testServer);
   }
 });
@@ -42,7 +42,7 @@ test('Everything OK, Node? Want to talk about it?', function(t){
 *
 *******************************************************************************/
 
-test('test request for getData/title', function(t){
+test('can I GET getData/title?', function(t){
 
   var options = {
     host: 'localhost',
@@ -78,7 +78,7 @@ test('test request for getData/title', function(t){
 *
 *******************************************************************************/
 
-test('Closing and Exiting Server Process', function(t){
+test('Done!', function(t){
 
   server.close(function(){
     process.exit();
