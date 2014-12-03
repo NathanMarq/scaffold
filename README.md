@@ -71,9 +71,7 @@ Error logs can be found here: `/var/log/nodeserver.sys.log`
 
 Tests are written using Tape for both server-side and front-end code.
 
-Server/Node tests are in the www/routes/tests directory.
-
-Front-end (Angular) tests are located in the www/public_src/tests directory.
+All test files are in the tests/ directory, the subdirectories should match the application directories.
 
 Tests are all included in the Gruntfile and will be run every time an appropriate file is changed.
 
