@@ -1,4 +1,4 @@
-angular.module('wwwApp', ['ngRoute', 'ngMock'])
+angular.module('wwwApp', ['ngRoute'])
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {

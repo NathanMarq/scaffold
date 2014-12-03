@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                 'grunt_tmp/angularScripts.js' : [
                   'public_src/scripts/main.js',
                   'public_src/scripts/controllers/*.js',
-                  'public_src/scripts/services/*.js',
+                  'public_src/scripts/factories/*.js',
                   'public_src/scripts/filters/*.js',
                   'public_src/scripts/directives/*.js'
                 ]
@@ -92,8 +92,8 @@ module.exports = function(grunt) {
                 files: ['public_src/scripts/controllers/*.js'],
                 tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
-            services: {
-                files: ['public_src/scripts/services/*.js'],
+            factories: {
+                files: ['public_src/scripts/factories/*.js'],
                 tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             filters: {
