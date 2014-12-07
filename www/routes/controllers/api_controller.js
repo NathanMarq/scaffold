@@ -16,5 +16,4 @@ module.exports.controller = function(httpApp){
             response.send(exception + '');
         }
     });
-
 };

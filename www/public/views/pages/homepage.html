@@ -1,30 +1,55 @@
 <div class="outer">
     <div id="header"></div>
     <div id="content">
-        <div class="column full center">
-            <div class="innerBox" style="background-color: {{titleBGColor}};">
+        <div class="row innerBox center" style="background-color: {{titleBGColor}};">
+            <div class="col-sm-3 col-md-3"></div>
+            <div class="col-sm-6 col-md-6">
               <h1 style="font-size: {{headerSize}}px;">{{mainTitle.title}}</h1>
               <h3 style="font-size: {{subTitleSize}}px;">{{mainTitle.subtitle}}</h3>
             </div>
+            <div class="col-sm-3 col-md-3"></div>
         </div>
-        <div class="column full center">
+        <div class="row">
+          <div class="col-sm-3 col-md-3"></div>
+          <div class="col-sm-6 col-md-6 center">
             <p>
               The content above is populated via Angular AJAX calls to the Node server.<br />
               They can be edited (client-side) through Angular's two-way binding here:
             </p>
-            <label>Title: <input ng-model="mainTitle.title"/></label>
-            <label>Subtitle: <input ng-model="mainTitle.subtitle"/></label>
+            <div class="input-group">
+              <label class="input-group-addon">Title: </label><input class="form-control" ng-model="mainTitle.title"/>
+            </div>
+            <br />
+            <div class="input-group">
+              <label class="input-group-addon">Subtitle: </label><input class="form-control" ng-model="mainTitle.subtitle"/>
+            </div>
             <br />
             <br />
-            <label>Title Font Size: <input placeholder='default in px' ng-model="headerSize"/></label>
+            <div class="input-group">
+              <label class="input-group-addon">Title Font Size: </label><input class="form-control" placeholder='default in px' ng-model="headerSize"/>
+            </div>
             <br />
-            <label>Subtitle Font Size: <input placeholder='default in px' ng-model="subTitleSize"/></label>
+            <div class="input-group">
+              <label class="input-group-addon">Subtitle Font Size: </label><input class="form-control" placeholder='default in px' ng-model="subTitleSize"/>
+            </div>
+          </div>
+          <div class="col-sm-3 col-md-3 center"></div>
         </div>
-        <div class="column full center">
-          <br />
-          Click a button below to change the header's background color:
-          <br />
-          <button ng-repeat="color in colorOptions" class="colorButton" style="background-color: {{color}};" ng-click="changeColor(color)">{{color}}</button>
+        <br/>
+        <br/>
+        <div class="row">
+          <div class="col-sm-3 col-md-2"></div>
+          <div class="col-sm-6 col-md-8 center">
+            Click a button below to change the header's background color:
+          </div>
+          <div class="col-sm-3 col-md-2"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 col-md-3"></div>
+          <div class="col-sm-6 col-md-6 center">
+            <button ng-repeat="color in colorOptions" class="btn btn-default colorButton" style="background-color: {{color}};" ng-click="changeColor(color)">{{color}}</button>
+          </div>
+          <div class="col-sm-3 col-md-3"></div>
         </div>
     </div>
     <div id="footer"></div>

@@ -1,4 +1,8 @@
-## STARTER NODE/EXPRESS/ANGULAR WEBAPP ##
+## ANGULAR-EXPRESS SCAFFOLD ##
+
+This is a fully fitted server setup with Angular, NodeJS/Express, and Bootstrap.
+It is meant to be used as a starting point for webapps, so you can get to working on
+your actual app faster.
 
 ### System Configs ###
 
@@ -87,6 +91,8 @@ The node Express server will run as a daemon script, and will restart after rebo
 
 It is kept running using Monit, which will keep it running through errors and problems (see nodeservermonit.conf for more info)
 
+For development, the Node server uses supervisor to restart when server-related files are changed. Look at the nodeserver.conf file to see which files are being watched for restarts.
+
 ###Credits:###
 * Originally based off of [John Longanecker's Angular Skeleton](https://github.com/jlongnbt/angular-skeleton "jlongnbt repo")
 * Monit and Upstart setup based off of the tutorial [HERE](http://howtonode.org/deploying-node-upstart-monit)
@@ -94,4 +100,3 @@ It is kept running using Monit, which will keep it running through errors and pr
 ## @TODO: ##
 
 * add a Monit Cronjob to run periodically, to make sure Monit stays running
-* add some way to restart the server automatically when server files are changed

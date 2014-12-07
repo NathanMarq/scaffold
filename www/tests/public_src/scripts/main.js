@@ -10,7 +10,7 @@ we want to include these files for use:
 *
 *******************************************************************************/
 
-
+var app = angular.module('wwwApp');
 
 /*******************************************************************************
 *
@@ -19,7 +19,7 @@ we want to include these files for use:
 *******************************************************************************/
 
 
-test('Everything OK, Angular? Want to talk about it?', function(t){
+test('Everything OK, Angular?', function(t){
 
   t.ok(angular, 'Angular: "Yes, I\'m OK. I don\'t want to talk about it."');
   t.end();
@@ -34,6 +34,12 @@ test('Are you sure? (ngmock)', function(t){
 });
 
 test('Can you take me places? (routes)', function(t){
-  t.equals(0,0);
+
+  // app.inject(function($controller, $rootScope, $httpBackend){
+  //   var scope = $rootScope.new();
+  //   var ctrl = $controller('HomepageCtrl', { $scope: scope });
+  // });
+
+  t.ok(app.config, 'Angular: "Well, my config is ok..."');
   t.end();
 });

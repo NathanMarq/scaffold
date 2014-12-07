@@ -21,6 +21,7 @@ sudo npm config set registry http://registry.npmjs.org/
 cd /vagrant/www
 
 sudo npm install
+sudo npm install -g supervisor
 
 # For running node server perpetually, after restarting
 sudo apt-get install -y upstart
