@@ -1,5 +1,3 @@
-# run iptables forwarding command (for initial load, this is also in the nodeserver.conf file)
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
 
 sudo apt-get update
 
@@ -9,6 +7,16 @@ sudo apt-get -y install curl
 sudo apt-get -y install vim
 sudo apt-get -y install git
 
+
+# we'll use nginx to do our internal app routing with port forwarding
+sudo apt-get -y install nginx
+
+sudo cp /var/nodeserver_nginx.conf /etc/nginx/sites-available/
+sudo rm /etc/nginx/sites-enabled/default
+
+sudo ln -s /etc/nginx/sites-available/nodeserver_nginx.conf /etc/nginx/sites-enabled/nodeserver_nginx.conf
+
+sudo service nginx start
 
 # install the newest version of node
 sudo apt-get install -y python-software-properties python g++ make
@@ -21,6 +29,7 @@ sudo npm config set registry http://registry.npmjs.org/
 cd /var/www
 
 sudo npm install
+sudo npm install -g supervisor
 
 # For running node server perpetually, after restarting
 sudo apt-get install -y upstart
@@ -39,4 +48,4 @@ sudo chmod 700 /etc/monit/conf.d/nodeservermonit.conf
 sudo start nodeserver
 
 # start monit for error checking
-sudo monit -d 60 -c /etc/monit/conf.d/nodeservermonit.conf
+sudo monit -d 10 -c /etc/monit/conf.d/nodeservermonit.conf

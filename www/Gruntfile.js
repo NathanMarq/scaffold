@@ -125,7 +125,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-tape');
-    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-testling');
 
     grunt.registerTask('default', ['watch']);
