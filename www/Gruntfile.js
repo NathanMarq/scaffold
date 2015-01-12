@@ -104,6 +104,10 @@ module.exports = function(grunt) {
                 files: ['public_src/scripts/directives/*.js'],
                 tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
+            externalFiles: {
+              files: ['externalScripts.json', 'externalStyles.json'],
+              tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+            },
             // watch front-end code:
             ngTests: {
               files: ['tests/public_src/**/*.js'],

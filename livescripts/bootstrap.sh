@@ -1,15 +1,26 @@
-
+sudo add-apt-repository -y ppa:chris-lea/node.js
 sudo apt-get update
 
-# tools
-sudo apt-get -y install unzip
-sudo apt-get -y install curl
-sudo apt-get -y install vim
-sudo apt-get -y install git
+# RUN OUR INSTALLS:
 
+# TOOLS
+# unzip
+# curl
+# vim
+# git
 
-# we'll use nginx to do our internal app routing with port forwarding
-sudo apt-get -y install nginx
+# SERVER UTILS
+# nginx - for internal app routing with port forwarding
+# python
+# g++
+# make
+
+# WEBSERVER UTILS
+# nodejs
+# upstart - runs webserver perpetually, after restarts
+# monit - for restarting webserver after crashes, and reporting
+
+sudo apt-get install -y unzip curl vim git nginx python-software-properties python g++ make nodejs upstart monit
 
 sudo cp /var/nodeserver_nginx.conf /etc/nginx/sites-available/
 sudo rm /etc/nginx/sites-enabled/default
@@ -17,12 +28,7 @@ sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/nodeserver_nginx.conf /etc/nginx/sites-enabled/nodeserver_nginx.conf
 
 sudo service nginx start
-
-# install the newest version of node
-sudo apt-get install -y python-software-properties python g++ make
-sudo add-apt-repository -y ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install -y nodejs
+sudo service nginx reload
 
 sudo npm config set registry http://registry.npmjs.org/
 
@@ -31,16 +37,13 @@ cd /var/www
 sudo npm install
 sudo npm install -g supervisor
 
-# For running node server perpetually, after restarting
-sudo apt-get install -y upstart
-
 cd /var
 
+
+# copy conf fils over
 sudo cp nodeserver.conf /etc/init/
 sudo chmod 777 /etc/init/nodeserver.conf
 
-# install monit and copy conf file over
-sudo apt-get install -y monit
 sudo cp nodeservermonit.conf /etc/monit/conf.d/
 sudo chmod 700 /etc/monit/conf.d/nodeservermonit.conf
 

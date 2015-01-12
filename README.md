@@ -62,7 +62,7 @@ Navigate to `http://localhost:8082` in your browser to see the action!
 
 ### Server Editing ###
 
-Keep in mind that changes made on the server require server restarts, so Node can reload the changes:
+Node Supervisor should handle server restarts when files change, but just in case you need to restart manually, run:
 
 `sudo stop nodeserver`
 
