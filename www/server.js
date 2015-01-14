@@ -1,19 +1,17 @@
 
-var http = require('http'),
-    express = require('express'),
+var express = require('express'),
+    expressSession = require('express-session'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    favicon = require('serve-favicon'),
     fs = require('fs');
 
 var httpApp = express();
 
 httpApp.set('port', process.env.PORT || 8000);
-httpApp.set(express.favicon());
 
-httpApp.use(express.logger('dev'));
-httpApp.use(express.bodyParser());
-httpApp.use(express.methodOverride());
-httpApp.use(express.cookieParser('superdupersecretstring'));
-httpApp.use(express.session());
-httpApp.use(httpApp.router);
+httpApp.use(cookieParser('superdupersecretstring'));
+
 httpApp.use(express.static(__dirname + '/public'));
 
 // include all controllers
@@ -24,6 +22,6 @@ fs.readdirSync(__dirname + '/routes/controllers').forEach(function (file) {
   }
 });
 
-http.createServer(httpApp).listen(httpApp.get('port'), function(){
+httpApp.listen(httpApp.get('port'), function(){
     console.log('Express server listening on port ' + httpApp.get('port'));
 });

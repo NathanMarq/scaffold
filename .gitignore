@@ -11,4 +11,4 @@ www/public_src/libs/bower_components
 
 www/public/styles/*.css
 
-www/npm-debug.log
+npm-debug.log
