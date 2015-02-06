@@ -10,7 +10,13 @@ var httpApp = express();
 
 httpApp.set('port', process.env.PORT || 8000);
 
-httpApp.use(cookieParser('superdupersecretstring'));
+httpApp.use(cookieParser());
+
+httpApp.use(expressSession({
+  secret: 'superdupersecretstring'
+}));
+
+httpApp.use(bodyParser());
 
 httpApp.use(express.static(__dirname + '/public'));
 
