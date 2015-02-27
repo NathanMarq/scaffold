@@ -1,5 +1,3 @@
-'user strict';
-
 module.exports = function(grunt) {
 
     var externalStyleFiles = grunt.file.readJSON('externalStyles.json'),
