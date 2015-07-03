@@ -22,6 +22,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 80, host: 8082
   config.vm.network :forwarded_port, guest: 5432, host: 6789
 
+  config.vm.provision :shell, :path => "bootstrapping/bootstrap.sh"
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:

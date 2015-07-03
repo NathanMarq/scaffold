@@ -6,43 +6,36 @@ your actual app faster.
 
 ### System Configs ###
 
-**Created and Tested With:**
-
-* Mac OSX 10.9.2
-* Virtualbox 4.3.8 r92456
-* Vagrant 1.4.3
-* Grunt v0.1.13
-* Bower version 1.2.8
-
 * Uses Grunt Watch, which can be fully appreciated with the [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/details) plugin in Chrome
 
 **Server Side Dependencies:**
-
-* Node v0.10.26
+* nginx
+* Upstart
+* Monit
+* Node
 	* Express
+	* Supervisor
 
-These are all installed when you run the bootstrap file. Specific versions of the node modules can be found in the www/package.json file.
+These are all installed when the provisioning bootstrap file runs.
 
 **Front End Dependencies:**
 * AngularJS
+* Grunt
+* Bower
+* phantomjs
+* tape
 
-Versions of all of these can be found in the package.json file and the bower.json file.
+Versions of all of these can be found in the www/package.json file and the www/public_src/libs/bower.json file.
 
 ### Getting Started ###
 
-**To run this VM, you should have Vagrant installed. It makes things easier.**
+**To run this VM, you must have Vagrant installed.**
 
-As an alternative, you can run the live versions of the bootstrap and setup confs(found in the livescripts directory) in your Ubuntu server environment.
+As an alternative, you can run the bootstrap in your Ubuntu server environment, but replace all the /vagrant dirs with /var.
 
 **After cloning the repo, start up the Vagrant box:**
 
 `vagrant up`
-
-`vagrant ssh`
-
-`cd /vagrant`
-
-`sh bootstrap.sh`
 
 **Then, from your local machine:**
 
@@ -81,17 +74,19 @@ Tests are all included in the Gruntfile and will be run every time an appropriat
 
 ### Live Deployment ###
 
-For the live versions of the bootstrap and config files, look in the livescripts directory.
+Copy all the bootstrapping files up, then change any references to /vagrant in the bootstrap.sh file to /var. Then run it:
 
-The .conf files should go into the /var directory, and the bootstrap.sh file should be in the /var/www directory.
+`sudo sh bootstrap.sh`
 
 ### About the Server ###
 
-The node Express server will run as a daemon script, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
+The Node Express server will run as a daemon script, and will restart after reboot using Upstart (installed in the bootstrap. See the nodeserver.conf file for settings).
 
 It is kept running using Monit, which will keep it running through errors and problems (see nodeservermonit.conf for more info)
 
 For development, the Node server uses supervisor to restart when server-related files are changed. Look at the nodeserver.conf file to see which files are being watched for restarts.
+
+One thing I've noticed: When running `vagrant suspend` then `vagrant resume`, supervisor may no longer restart the server when you make changes to your node files. Just run a `sudo stop nodeserver` and a `sudo start nodeserver` to get it updating normally again.
 
 ###Credits:###
 * Originally based off of [John Longanecker's Angular Skeleton](https://github.com/jlongnbt/angular-skeleton "jlongnbt repo")
