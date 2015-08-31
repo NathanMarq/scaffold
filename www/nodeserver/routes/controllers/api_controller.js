@@ -1,4 +1,5 @@
-var apiModel = require('../models/api_model');
+var apiModel = require('../models/api_model'),
+    logger = require('log4js').getLogger('api_controller');
 
 module.exports.controller = function(httpApp){
 
@@ -13,6 +14,7 @@ module.exports.controller = function(httpApp){
             });
         }
         catch (exception){
+            logger.error(exception + '');
             response.send(exception + '');
         }
     });

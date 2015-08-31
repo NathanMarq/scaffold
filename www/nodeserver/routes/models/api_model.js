@@ -1,3 +1,4 @@
+var logger = require('log4js').getLogger('api_model');
 
 var titleContent = {title: "HEY THERE",
                     subtitle: "welcome to your premade app!"};
