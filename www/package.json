@@ -1,5 +1,5 @@
 {
-  "name": "new-www-app",
+  "name": "app",
   "version": "0.0.1",
   "private": true,
   "description": "sample node server with angular and a grunt build process",
