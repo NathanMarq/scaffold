@@ -1,4 +1,4 @@
-angular.module('wwwApp')
+angular.module('app')
     .controller('HomepageCtrl', function($scope, ajaxFactory) {
 
         $scope.headerSize = null;
