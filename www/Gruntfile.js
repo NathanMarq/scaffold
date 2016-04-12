@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                   'public_src/scripts/controllers/*.js',
                   'public_src/scripts/factories/*.js',
                   'public_src/scripts/filters/*.js',
+                  'public_src/scripts/components/*.js',
                   'public_src/scripts/directives/*.js'
                 ]
               }
@@ -96,6 +97,10 @@ module.exports = function(grunt) {
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
+                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+            },
+            components: {
+                files: ['public_src/scripts/components/*.js'],
                 tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             directives: {

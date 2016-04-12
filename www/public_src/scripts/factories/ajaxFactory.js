@@ -1,4 +1,4 @@
-angular.module('wwwApp')
+angular.module('app')
     .factory('ajaxFactory', function($http) {
 
             return {

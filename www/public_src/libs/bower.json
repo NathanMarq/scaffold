@@ -1,8 +1,9 @@
 {
-  "name": "wwwapp",
+  "name": "app",
   "version": "0.0.1",
   "authors": [
-    "nathanmarq"
+    "Nate Marquardt",
+    "Thomas J. Fox"
   ],
   "license": "MIT",
   "private": true,
@@ -13,8 +14,8 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "angular": "^1.4.5",
-    "angular-route": "^1.4.5",
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
     "bootstrap": "^3.3.5"
   }
 }
