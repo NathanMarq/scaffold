@@ -1,0 +1,13 @@
+{
+  "cwd": "./",
+  "directory": "./public_src/bower_components",
+  "registry": "https://bower.herokuapp.com",
+  "color": true,
+  "interactive": true,
+  "scripts": {
+    "preinstall": "",
+    "postinstall": "",
+    "preuninstall": ""
+  },
+  "ignoredDependencies": []
+}

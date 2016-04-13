@@ -2,13 +2,12 @@
 .vagrant
 
 node_modules
+bower_components
 
-www/grunt_tmp
+grunt_tmp
 
-www/public/scripts/dist
-www/public/scripts/app.js
-www/public_src/libs/bower_components
-
-www/public/styles/*.css
+application/public/scripts/dist
+application/public/scripts/*.js
+application/public/styles/*.css
 
 npm-debug.log

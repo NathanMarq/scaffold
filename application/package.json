@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "description": "sample node server with angular and a grunt build process",
-  "main": "server.js",
+  "main": "nodeserver/server.js",
   "dependencies": {
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cookie-parser": "^1.3.5",
-    "domain": "0.0.1",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "log4js": "^0.6.26",
