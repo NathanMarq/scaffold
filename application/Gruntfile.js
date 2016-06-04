@@ -76,10 +76,13 @@ module.exports = function(grunt) {
               quiet: true,
               configFile: '.eslintrc.js'
             },
-            target: [
-              'public_src/scripts/**/*.js',
-              'nodeserver/**/*.js'
-            ]
+            server:['nodeserver/**/*.js'],
+            mainScript: ['public_src/scripts/main.js'],
+            controllers: ['public_src/scripts/controllers/*.js'],
+            factories: ['public_src/scripts/factories/*.js'],
+            filters: ['public_src/scripts/filters/*.js'],
+            components: ['public_src/scripts/components/*.js'],
+            directives: ['public_src/scripts/directives/*.js']
         },
         lesslint: {
             options: {
@@ -103,31 +106,31 @@ module.exports = function(grunt) {
             },
             server: {
                 files: ['nodeserver/**/*.js'],
-                tasks: ['eslint']
+                tasks: ['eslint:server']
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:mainScript', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:controllers', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             factories: {
                 files: ['public_src/scripts/factories/*.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:factories', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:filters', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             components: {
                 files: ['public_src/scripts/components/*.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:components', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['eslint', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:directives', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             externalFiles: {
               files: ['externalScripts.json'],
