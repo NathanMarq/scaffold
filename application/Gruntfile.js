@@ -86,7 +86,7 @@ module.exports = function(grunt) {
         },
         lesslint: {
             options: {
-              failOnWarning: true
+              failOnWarning: false
             },
             src: [
               'public_src/styles/**/*.less', '!public_src/styles/main.less'
