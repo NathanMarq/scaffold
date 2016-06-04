@@ -7,7 +7,7 @@ module.exports.getData = function(encodedParamsObject, callback){
 
     var paramsObject = decodeURI(encodedParamsObject);
 
-    if(paramsObject == "title"){
+    if(paramsObject === "title"){
         callback(titleContent);
     }
     else{

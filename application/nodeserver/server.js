@@ -35,8 +35,8 @@ domain.run(function() {
 
   // include all controllers
   fs.readdirSync(__dirname + '/routes/controllers').forEach(function (file) {
-    if(file.substr(-3) == '.js') {
-        route = require(__dirname + '/routes/controllers/' + file);
+    if(file.substr(-3) === '.js') {
+        var route = require(__dirname + '/routes/controllers/' + file);
         route.controller(httpApp);
     }
   });
