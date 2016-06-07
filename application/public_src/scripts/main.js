@@ -1,14 +1,14 @@
-angular.module('app', ['ngRoute'])
-    .config(function($compileProvider, $routeProvider) {
+angular.module('app', [ 'ngRoute' ])
+.config(function($compileProvider, $routeProvider){
 
-      $compileProvider.debugInfoEnabled(false);
+  $compileProvider.debugInfoEnabled(false);
 
-      $routeProvider
-          .when('/', {
-              templateUrl: 'views/pages/homepage.html',
-              controller: 'HomepageCtrl'
-          })
-          .otherwise({
-              redirectTo: '/'
-          });
+  $routeProvider
+    .when('/', {
+      templateUrl: 'views/pages/homepage.html',
+      controller: 'HomepageCtrl'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
 });
