@@ -5,11 +5,9 @@ if [ -d /vagrant ]
 
     sudo rm -rf /var/www
     sudo ln -s /vagrant /var/www
-    ROOT_DIR=/vagrant
 
   else
     ENV_USER=ubuntu
-    ROOT_DIR=/var/www
 fi
 
 echo "### Copy bash_profile ###"
@@ -17,6 +15,22 @@ echo "### Copy bash_profile ###"
 # copy our fancy bash profile over :)
 eval cp /var/www/bootstrapping/.bash_profile "~/"
 eval source "~/.bash_profile"
+
+echo -e "\n######## install 1GB swap... ########\n"
+# create the swapfile and set perms:
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+# tell mem management to use that file for swap:
+sudo mkswap /swapfile
+sudo swapon /swapfile
+printf "/swapfile   none    swap    sw    0   0\n" | sudo tee -a /etc/fstab
+# set "swappiness" - basically whether it should be used as last resort or not
+sudo sysctl vm.swappiness=10
+printf "\nvm.swappiness=10\n" | sudo tee -a /etc/sysctl.conf
+# how fast should we be clearing inode info from the cache?
+sudo sysctl vm.vfs_cache_pressure=50
+printf "vm.vfs_cache_pressure=50\n" | sudo tee -a /etc/sysctl.conf
+sudo swapon -s
 
 echo "### set up PPA for Node: ###"
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
@@ -44,7 +58,11 @@ sudo apt-get update
   # monit - for restarting webserver after crashes, and reporting
 
 echo "### Installing general utils: ###"
-sudo apt-get install -y unzip curl vim git nginx python-software-properties python g++ make nodejs build-essential upstart monit
+sudo apt-get install -y unzip curl vim git nginx python-software-properties python g++ make
+sudo apt-get install -y nodejs
+sudo apt-get install -y build-essential
+sudo apt-get install -y upstart
+sudo apt-get install -y monit
 
 echo "### Copying nginx files: ###"
 sudo cp /var/www/bootstrapping/nodeserver_nginx.conf /etc/nginx/sites-available/
@@ -56,6 +74,11 @@ echo "### Start nginx: ###"
 sudo service nginx start
 sudo service nginx reload
 
+echo "### Upgrade Node to newest version: ###"
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
 echo "### Add npm registry: ###"
 sudo npm config set registry http://registry.npmjs.org/
 
@@ -65,16 +88,13 @@ echo "### NPM Install: ###"
 sudo npm install
 sudo npm install --save -g supervisor
 
-cd /var/www/bootstrapping
-
-
 # copy conf files over
 echo "### Copy daemon conf file: ###"
-sudo cp nodeserver.conf /etc/init/
+sudo cp /var/www/bootstrapping/nodeserver.conf /etc/init/
 sudo chmod 777 /etc/init/nodeserver.conf
 
 echo "### Copy monit conf file: ###"
-sudo cp nodeserver_monit.conf /etc/monit/conf.d/
+sudo cp /var/www/bootstrapping/nodeserver_monit.conf /etc/monit/conf.d/
 sudo chmod 700 /etc/monit/conf.d/nodeserver_monit.conf
 
 echo "### Starting nodeserver daemon: ###"
