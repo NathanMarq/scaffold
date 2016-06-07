@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     var externalScriptFiles = grunt.file.readJSON('externalScripts.json');
 
     require('time-grunt')(grunt);
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -31,11 +32,11 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 report: 'min',
-                mangle: true,
+                mangle: true
             },
             main: {
               files: {
-                'public/scripts/app.js' : ['public/scripts/app.js'],
+                'public/scripts/app.js' : ['public/scripts/app.js']
               }
             }
         },
@@ -70,6 +71,27 @@ module.exports = function(grunt) {
                       'tests/routes/**/*.js'
             ]
         },
+        eslint: {
+            options: {
+              quiet: true,
+              configFile: '.eslintrc.js'
+            },
+            server:['nodeserver/**/*.js'],
+            mainScript: ['public_src/scripts/main.js'],
+            controllers: ['public_src/scripts/controllers/*.js'],
+            factories: ['public_src/scripts/factories/*.js'],
+            filters: ['public_src/scripts/filters/*.js'],
+            components: ['public_src/scripts/components/*.js'],
+            directives: ['public_src/scripts/directives/*.js']
+        },
+        lesslint: {
+            options: {
+              failOnWarning: false
+            },
+            src: [
+              'public_src/styles/**/*.less', '!public_src/styles/main.less'
+            ]
+        },
         watch: {
             options: {
                 livereload: true,
@@ -77,34 +99,38 @@ module.exports = function(grunt) {
             },
             less: {
                 files: ['public_src/styles/**/*.less'],
-                tasks: ['less']
+                tasks: ['lesslint', 'less']
             },
             html: {
                 files: ['public/index.html', 'public/views/**/*.html']
             },
+            server: {
+                files: ['nodeserver/**/*.js'],
+                tasks: ['eslint:server']
+            },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:mainScript', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:controllers', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             factories: {
                 files: ['public_src/scripts/factories/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:factories', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:filters', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             components: {
                 files: ['public_src/scripts/components/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:components', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:directives', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
             },
             externalFiles: {
               files: ['externalScripts.json'],
@@ -121,7 +147,7 @@ module.exports = function(grunt) {
                 files: ['server.js', 'routes/**/*.js', 'tests/routes/**/*.js'],
                 tasks: ['tape']
             }
-        },
+        }
     });
 
     grunt.loadNpmTasks('grunt-ng-annotate');
@@ -132,6 +158,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-tape');
     grunt.loadNpmTasks('grunt-testling');
+    grunt.loadNpmTasks('grunt-lesslint');
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('build', ['clean', 'less', 'concat:libs', 'ngAnnotate', 'concat:app', 'uglify']);
