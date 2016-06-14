@@ -9,12 +9,12 @@ fs = require('fs');
 *
 *******************************************************************************/
 
-testServer.set('port', 73575);
+testServer.set('port', 8080);
 
 // include all controllers - taken straight from regular server setup
-fs.readdirSync(__dirname + '/../../routes/controllers/').forEach(function (file) {
-  if(file.substr(-3) == '.js') {
-    route = require(__dirname + '/../../routes/controllers/' + file);
+fs.readdirSync(__dirname + '/../../nodeserver/routes/controllers/').forEach(function (file) {
+  if(file.substr(-3) === '.js') {
+    var route = require(__dirname + '/../../nodeserver/routes/controllers/' + file);
     route.controller(testServer);
   }
 });
@@ -47,7 +47,7 @@ test('can I GET getData/title?', function(t){
   var options = {
     host: 'localhost',
     path: '/api/getData/title',
-    port: '73575',
+    port: '8080',
     method: 'GET'
   };
 
