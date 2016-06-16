@@ -1,5 +1,5 @@
 angular.module('app', [ 'ngRoute' ])
-.config(function($compileProvider, $routeProvider){
+.config(($compileProvider, $routeProvider) => {
 
   $compileProvider.debugInfoEnabled(false);
 

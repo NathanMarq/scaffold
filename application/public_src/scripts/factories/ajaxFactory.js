@@ -1,10 +1,10 @@
 angular.module('app')
-.factory('ajaxFactory', function($http){
+.factory('ajaxFactory', ($http) => {
 
   return {
-    getAppTitle : function() {
+    getAppTitle : () => {
       return $http.get('/api/getData/title')
-              .then(function(result){
+              .then((result) => {
                 return result.data;
               });
     }

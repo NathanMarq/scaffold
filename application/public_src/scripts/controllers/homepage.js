@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HomepageCtrl', function($scope, ajaxFactory){
+.controller('HomepageCtrl', ($scope, ajaxFactory) => {
 
   $scope.headerSize = null;
   $scope.subTitleSize = null;
@@ -7,11 +7,11 @@ angular.module('app')
 
   $scope.colorOptions = [ '#002635', '#013440', '#AB1A25', '#D97925' ];
 
-  ajaxFactory.getAppTitle().then(function(results){
+  ajaxFactory.getAppTitle().then((results) => {
     $scope.mainTitle = results;
   });
 
-  $scope.changeColor = function(color){
+  $scope.changeColor = (color) => {
     $scope.titleBGColor = color;
   };
 

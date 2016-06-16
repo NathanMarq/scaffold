@@ -1,6 +1,9 @@
 module.exports = {
-  "ecmaFeatures": {
-    "blockBindings": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "blockBindings": true
+    },
   },
   "env": {
     "browser": true,

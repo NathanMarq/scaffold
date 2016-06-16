@@ -1,15 +1,15 @@
-var apiModel = require('../models/api_model'),
+const apiModel = require('../models/api_model'),
     logger = require('log4js').getLogger('api_controller');
 
-module.exports.controller = function(httpApp){
+module.exports.controller = (httpApp) => {
 
-    httpApp.get('/api/getData/:param', function(request, response){
+    httpApp.get('/api/getData/:param', (request, response) => {
 
         var paramsObject = request.params.param;
 
         try{
             response.setHeader('Content-Type', 'application/json');
-            apiModel.getData(paramsObject, function(results){
+            apiModel.getData(paramsObject, (results) => {
                 response.send(results);
             });
         }

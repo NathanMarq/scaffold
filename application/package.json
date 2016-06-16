@@ -15,6 +15,9 @@
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "bowcat": "^1.0.1",
     "eslint": "^2.11.1",
     "eslint-plugin-angular": "^1.0.1",
     "eslint-plugin-html": "^1.5.1",
@@ -31,12 +34,16 @@
     "grunt-ng-annotate": "^1.0.1",
     "grunt-tape": "0.0.2",
     "grunt-testling": "^1.2.0",
+    "less": "^2.7.1",
+    "livereload": "^0.4.1",
     "load-grunt-tasks": "^3.5.0",
+    "ng-annotate": "^1.2.1",
+    "nodemon": "^1.9.2",
     "phantomjs": "^1.9.18",
     "tape": "^4.2.0",
     "testling": "^1.7.1",
     "time-grunt": "^1.2.1",
-    "uglify-js": "^2.4.24"
+    "uglify-js": "^2.6.2"
   },
   "testling": {
     "files": [
@@ -46,6 +53,22 @@
       "public/scripts/app.js",
       "node_modules/angular-mocks/angular-mocks.js"
     ]
+  },
+  "scripts": {
+    "prewatch": "npm run concat:js & npm run build:less;",
+    "watch": "npm run watch:less & npm run watch:frontend & livereload public -d;",
+    "watch:frontend": "nodemon -L --watch public_src/scripts --watch public_src/bower_components --exec 'npm run concat:js';",
+    "watch:less": "nodemon -L -e less --exec 'npm run build:less';",
+    "lint:js": "eslint ./public_src/scripts/**/*.js;",
+    "lint:babel": "eslint bower_tmp/app.js;",
+    "babel:js": "babel public_src/scripts/main.js public_src/scripts/**/*.js > bower_tmp/app.js;",
+    "clean:css": "rm public/styles/app.css;",
+    "clean:js": "rm -rf bower_tmp;",
+    "preconcat:js": "npm run clean:js; bowcat -o bower_tmp -m; npm run lint:js; npm run babel:js;",
+    "concat:js": "cat ./bower_tmp/build.js ./bower_tmp/app.js | ng-annotate -a -o public/scripts/app.js -;",
+    "build": "npm run build:less; npm run build:js;",
+    "build:less": "lessc public_src/styles/main.less public/styles/app.css;",
+    "build:js": "npm run concat:js; uglifyjs public/scripts/app.js --compress --mangle -o public/scripts/app.js;"
   },
   "repository": {
     "type": "git",

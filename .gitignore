@@ -5,6 +5,7 @@ node_modules
 bower_components
 
 grunt_tmp
+bower_tmp
 
 application/public/scripts/dist
 application/public/scripts/*.js

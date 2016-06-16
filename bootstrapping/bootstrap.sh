@@ -7,6 +7,7 @@ if [ -d /vagrant ]
     sudo ln -s /vagrant /var/www
 
   else
+    sudo mkdir /var/www
     ENV_USER=ubuntu
 fi
 

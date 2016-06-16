@@ -1,5 +1,5 @@
 
-var express = require('express'),
+const express = require('express'),
     expressSession = require('express-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -9,13 +9,13 @@ var express = require('express'),
     logger = require('log4js').getLogger('main_server'),
     domain = require('domain').create();
 
-domain.on('error', function(err) {
+domain.on('error', (err) => {
 	logger.error('Domain error - worthy of a server crash: ');
   logger.error(err.stack);
  // deal with this error somehow - perhaps restart server when all clients disconnect?
 });
 
-domain.run(function() {
+domain.run(() => {
 
   var httpApp = express();
 
@@ -34,14 +34,14 @@ domain.run(function() {
   httpApp.use(express.static(__dirname + '/../public'));
 
   // include all controllers
-  fs.readdirSync(__dirname + '/routes/controllers').forEach(function (file) {
+  fs.readdirSync(__dirname + '/routes/controllers').forEach((file) => {
     if(file.substr(-3) === '.js') {
         var route = require(__dirname + '/routes/controllers/' + file);
         route.controller(httpApp);
     }
   });
 
-  httpApp.listen(httpApp.get('port'), function(){
+  httpApp.listen(httpApp.get('port'), () => {
       logger.info('Express server listening on port ' + httpApp.get('port'));
   });
 
