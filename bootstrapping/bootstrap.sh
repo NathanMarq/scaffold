@@ -7,6 +7,7 @@ if [ -d /vagrant ]
     sudo ln -s /vagrant /var/www
 
   else
+    sudo rm -rf /var/www
     sudo mkdir /var/www
     ENV_USER=ubuntu
 fi
@@ -38,6 +39,7 @@ curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 
 echo "### Updating apt-get: ###"
 sudo apt-get update
+sudo apt-get -y upgrade
 
 # RUN OUR INSTALLS:
 

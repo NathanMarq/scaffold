@@ -1,4 +1,3 @@
-
 const express = require('express'),
     expressSession = require('express-session'),
     bodyParser = require('body-parser'),
@@ -16,17 +15,21 @@ domain.on('error', (err) => {
 });
 
 domain.run(() => {
+  process.env.NODE_CONFIG_DIR = "/var/www/application/nodeserver/config";
+  process.env.NODE_ENV = "default";
+  // process.env.LOG4JS_CONFIG = "/var/www/application/nodeserver/config/log4js.json";
+  var config = require("config");
 
   var httpApp = express();
 
-  httpApp.set('port', 8000);
+  httpApp.set('port', config.get("server.port"));
 
   httpApp.use(compress()); //gzip support
 
   httpApp.use(cookieParser());
 
   httpApp.use(expressSession({
-    secret: 'superdupersecretstring'
+    secret: config.get("server.secretstring")
   }));
 
   httpApp.use(bodyParser());
@@ -34,12 +37,13 @@ domain.run(() => {
   httpApp.use(express.static(__dirname + '/../public'));
 
   // include all controllers
-  fs.readdirSync(__dirname + '/routes/controllers').forEach((file) => {
-    if(file.substr(-3) === '.js') {
-        var route = require(__dirname + '/routes/controllers/' + file);
-        route.controller(httpApp);
-    }
-  });
+  fs.readdirSync(__dirname + '/routes')
+    .forEach((file) => {
+      if(file.substr(-3) !== '.js') {
+        var routers = require(__dirname + '/routes/' + file);
+        routers.attachHandlers(httpApp);
+      }
+    });
 
   httpApp.listen(httpApp.get('port'), () => {
       logger.info('Express server listening on port ' + httpApp.get('port'));

@@ -1,7 +1,7 @@
-const apiModel = require('../models/api_model'),
+const apiModel = require('./api_model'),
     logger = require('log4js').getLogger('api_controller');
 
-module.exports.controller = (httpApp) => {
+module.exports.attachHandlers = (httpApp) => {
 
     httpApp.get('/api/getData/:param', (request, response) => {
 
