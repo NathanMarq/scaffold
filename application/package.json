@@ -65,11 +65,11 @@
     "babel:js": "babel public_src/scripts/main.js public_src/scripts/**/*.js > bower_tmp/app.js;",
     "clean:css": "rm public/styles/app.css;",
     "clean:js": "rm -rf bower_tmp;",
-    "preconcat:js": "npm run clean:js; bowcat -o bower_tmp -m; npm run lint:js; npm run babel:js;",
+    "preconcat:js": "npm run clean:js && bowcat -o bower_tmp -m && npm run lint:js && npm run babel:js;",
     "concat:js": "cat ./bower_tmp/build.js ./bower_tmp/app.js | ng-annotate -a -o public/scripts/app.js -;",
     "build": "npm run build:less; npm run build:js;",
     "build:less": "lessc public_src/styles/main.less public/styles/app.css;",
-    "build:js": "npm run concat:js; uglifyjs public/scripts/app.js --compress --mangle -o public/scripts/app.js;"
+    "build:js": "npm run concat:js && uglifyjs public/scripts/app.js --compress --mangle -o public/scripts/app.js;"
   },
   "repository": {
     "type": "git",
