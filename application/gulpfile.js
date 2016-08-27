@@ -91,8 +91,8 @@ function addWatchTask(name, path, tasks, autoClean) {
     if (autoClean) {
       watcher.on('change', function (event) {
         if (event.type === 'deleted') {
-          delete cache.caches['scripts'][event.path];
-          remember.forget('scripts', event.path);
+          delete cache.caches[autoClean][event.path];
+          remember.forget(autoClean, event.path);
         }
       });
     }
@@ -102,8 +102,8 @@ function addWatchTask(name, path, tasks, autoClean) {
 }
 
 addWatchTask('watch:server', path.server, ['eslint:server']);
-addWatchTask('watch:scripts', path.scripts, ['build:js'], true);
-addWatchTask('watch:externalScripts', path.externalScripts, ['build:js'], true);
+addWatchTask('watch:scripts', path.scripts, ['build:js'], 'scripts');
+addWatchTask('watch:externalScripts', path.externalScripts, ['build:js'], 'externalScripts');
 addWatchTask('watch:styles', path.styles, ['build:less']);
 addWatchTask('watch:tests', path.tests, ['eslint:tests']);
 
