@@ -16,8 +16,9 @@ var tapColorize = require('tap-colorize');
 var path = {
   server: 'nodeserver/**/*.{js,json}',
   scripts: 'public_src/scripts/**/*.js',
-  externalScripts: require('externalScripts.json'),
-  styles: 'public_src/styles/main.less',
+  externalScripts: require('./externalScripts.json'),
+  mainStyle: 'public_src/styles/main.less',
+  styles: 'public_src/styles/**/*.less',
   tests: 'tests/**/*.js'
 };
 
@@ -52,7 +53,7 @@ gulp.task('build:js', function() {
 });
 
 gulp.task('build:less', function() {
-  return gulp.src('public_src/styles/main.less')
+  return gulp.src(path.mainStyle)
     .pipe(less())
     .pipe(cleanCSS())
     .pipe(rename('app.css'))
