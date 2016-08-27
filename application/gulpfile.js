@@ -19,7 +19,8 @@ var path = {
   externalScripts: require('./externalScripts.json'),
   mainStyle: 'public_src/styles/main.less',
   styles: 'public_src/styles/**/*.less',
-  tests: 'tests/**/*.js'
+  tests: 'tests/**/*.js',
+  backendTests: 'tests/public_src/**/*.js'
 };
 
 /**
@@ -64,15 +65,20 @@ gulp.task('build:less', function() {
  * add linter tasks
  */
 
-gulp.task('eslint:server', function() {
-  return gulp.src(path.server)
-    .pipe(eslint({
-      quiet: true,
-      configFile: '.eslintrc.js'
-    }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
+function addEslintTask(name, path) {
+  gulp.task(name, function() {
+    return gulp.src(path)
+      .pipe(eslint({
+        quiet: true,
+        configFile: '.eslintrc.js'
+      }))
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError());
+  });
+}
+
+addEslintTask('eslint:server', path.server);
+addEslintTask('eslint:tests', path.tests);
 
 /**
  * add watch tasks
@@ -99,13 +105,14 @@ addWatchTask('watch:server', path.server, ['eslint:server']);
 addWatchTask('watch:scripts', path.scripts, ['build:js'], true);
 addWatchTask('watch:externalScripts', path.externalScripts, ['build:js'], true);
 addWatchTask('watch:styles', path.styles, ['build:less']);
+addWatchTask('watch:tests', path.tests, ['eslint:tests']);
 
 /**
  * add test tasks
  */
 
 gulp.task('test:backend', function() {
-  return gulp.src(path.tests)
+  return gulp.src(path.backendTests)
     .pipe(tape({
       reporter: tapColorize()
     }));
@@ -115,6 +122,6 @@ gulp.task('test:backend', function() {
  * add general tasks
  */
 
-gulp.task('watch', gulp.parallel('watch:scripts', 'watch:externalScripts', 'watch:styles', 'watch:server'));
+gulp.task('watch', gulp.parallel('watch:scripts', 'watch:externalScripts', 'watch:styles', 'watch:server', 'watch:tests'));
 gulp.task('build', gulp.parallel('build:js', 'build:less'));
 gulp.task('test', gulp.parallel('test:backend'));
