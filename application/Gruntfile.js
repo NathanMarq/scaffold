@@ -76,7 +76,7 @@ module.exports = function(grunt) {
               quiet: true,
               configFile: '.eslintrc.js'
             },
-            server:['nodeserver/**/*.js'],
+            server: ['nodeserver/**/*.js'],
             mainScript: ['public_src/scripts/main.js'],
             controllers: ['public_src/scripts/controllers/*.js'],
             factories: ['public_src/scripts/factories/*.js'],

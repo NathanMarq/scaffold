@@ -30,6 +30,7 @@
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^19.0.0",
     "grunt-lesslint": "^3.2.0",
     "grunt-ng-annotate": "^2.0.2",
     "grunt-tape": "^0.1.0",
