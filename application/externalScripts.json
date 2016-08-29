@@ -1,7 +1,7 @@
 [
-    "public_src/bower_components/angular/angular.min.js",
-    "public_src/bower_components/angular-route/angular-route.min.js",
-    "node_modules/angular-mocks/angular-mocks.js",
-    "public_src/bower_components/jquery/dist/jquery.min.js",
-    "public_src/bower_components/bootstrap/dist/js/bootstrap.min.js"
+  "public_src/bower_components/angular/angular.js",
+  "public_src/bower_components/angular-route/angular-route.js",
+  "public_src/bower_components/jquery/dist/jquery.js",
+  "public_src/bower_components/bootstrap/dist/js/bootstrap.js",
+  "node_modules/angular-mocks/angular-mocks.js"
 ]

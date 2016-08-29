@@ -19,12 +19,12 @@ module.exports = function(grunt) {
             main: {
               files: {
                 'grunt_tmp/angularScripts.js' : [
-                  'public_src/scripts/main.js',
-                  'public_src/scripts/controllers/*.js',
-                  'public_src/scripts/factories/*.js',
-                  'public_src/scripts/filters/*.js',
-                  'public_src/scripts/components/*.js',
-                  'public_src/scripts/directives/*.js'
+                  'grunt_tmp/scripts/main.js',
+                  'grunt_tmp/scripts/controllers/*.js',
+                  'grunt_tmp/scripts/factories/*.js',
+                  'grunt_tmp/scripts/filters/*.js',
+                  'grunt_tmp/scripts/components/*.js',
+                  'grunt_tmp/scripts/directives/*.js'
                 ]
               }
             }
@@ -76,13 +76,34 @@ module.exports = function(grunt) {
               quiet: true,
               configFile: '.eslintrc.js'
             },
-            server:['nodeserver/**/*.js'],
+            server: ['nodeserver/**/*.js'],
             mainScript: ['public_src/scripts/main.js'],
             controllers: ['public_src/scripts/controllers/*.js'],
             factories: ['public_src/scripts/factories/*.js'],
             filters: ['public_src/scripts/filters/*.js'],
             components: ['public_src/scripts/components/*.js'],
             directives: ['public_src/scripts/directives/*.js']
+        },
+        babel: {
+          options: {
+            presets: ['es2015']
+          },
+          main: {
+            files: [{
+              expand: true,
+              cwd: 'public_src',
+              src: [
+                'scripts/main.js',
+                'scripts/controllers/*.js',
+                'scripts/factories/*.js',
+                'scripts/filters/*.js',
+                'scripts/components/*.js',
+                'scripts/directives/*.js'
+              ],
+              dest: 'grunt_tmp',
+              ext: '.js'
+            }]
+          }
         },
         lesslint: {
             options: {
@@ -110,31 +131,31 @@ module.exports = function(grunt) {
             },
             mainScript: {
                 files: ['public_src/scripts/main.js'],
-                tasks: ['eslint:mainScript', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:mainScript', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             controllers: {
                 files: ['public_src/scripts/controllers/*.js'],
-                tasks: ['eslint:controllers', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:controllers', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             factories: {
                 files: ['public_src/scripts/factories/*.js'],
-                tasks: ['eslint:factories', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:factories', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             filters: {
                 files: ['public_src/scripts/filters/*.js'],
-                tasks: ['eslint:filters', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:filters', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             components: {
                 files: ['public_src/scripts/components/*.js'],
-                tasks: ['eslint:components', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:components', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             directives: {
                 files: ['public_src/scripts/directives/*.js'],
-                tasks: ['eslint:directives', 'clean', 'concat:libs', 'ngAnnotate', 'concat:app', 'testling']
+                tasks: ['eslint:directives', 'clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'testling']
             },
             externalFiles: {
               files: ['externalScripts.json'],
-              tasks: ['clean', 'concat:libs', 'ngAnnotate', 'concat:app']
+              tasks: ['clean', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app']
             },
             // watch front-end code:
             ngTests: {
@@ -161,6 +182,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-lesslint');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean', 'less', 'concat:libs', 'ngAnnotate', 'concat:app', 'uglify']);
+    grunt.registerTask('build', ['clean', 'less', 'concat:libs', 'babel', 'ngAnnotate', 'concat:app', 'uglify']);
 
 };
