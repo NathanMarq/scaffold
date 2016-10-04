@@ -1,13 +1,86 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-strict-di>
+<html>
 <head>
-    <title>WWW APP</title>
+    <title>NEW APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="/styles/app.css">
 </head>
 <body>
-    <div ng-view id="ngView"></div>
-    <script type="text/javascript" src="scripts/app.js"></script>
+  <div class="outer">
+    <div id="header" class="container-fluid"></div>
+    <div id="content" class="container-fluid">
+      <div id="title-container" class="row innerBox center">
+        <div class="col-sm-3 col-md-3"></div>
+        <div class="col-sm-6 col-md-6">
+          <h1 id="title"></h1>
+          <h3 id="subtitle"></h3>
+        </div>
+        <div class="col-sm-3 col-md-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-3"></div>
+        <div class="col-sm-6 col-md-6 center">
+          <p>
+            The content above is populated via AJAX calls to the Node server.<br />
+            They can be edited (client-side) here:
+          </p>
+          <div class="input-group">
+            <label class="input-group-addon">Title: </label>
+            <input id="title-input" class="form-control" type="text" onkeyup="updateContent('title', event);"/>
+          </div>
+          <br />
+          <div class="input-group">
+            <label class="input-group-addon">Subtitle: </label>
+            <input id="subtitle-input" class="form-control" type="text" onkeyup="updateContent('subtitle', event);"/>
+          </div>
+          <br />
+          <br />
+          <div class="input-group">
+            <label class="input-group-addon">Title Font Size: </label>
+            <input class="form-control" type="number" placeholder='default in px' onkeyup="updateSize('title', event);"/>
+          </div>
+          <br />
+          <div class="input-group">
+            <label class="input-group-addon">Subtitle Font Size: </label>
+            <input class="form-control" type="number" placeholder='default in px' onkeyup="updateSize('subtitle', event);"/>
+          </div>
+        </div>
+        <div class="col-sm-3 col-md-3 center"></div>
+      </div>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-sm-3 col-md-2"></div>
+        <div class="col-sm-6 col-md-8 center">
+          Click a button below to change the header's background color:
+        </div>
+        <div class="col-sm-3 col-md-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-md-3"></div>
+        <div class="col-sm-6 col-md-6 center">
+          <button id="button-0" class="btn btn-default colorButton" onclick="updateBackgroundColor('title-container', homepage.colorOptions[0])"></button>
+          <button id="button-1" class="btn btn-default colorButton" onclick="updateBackgroundColor('title-container', homepage.colorOptions[1])"></button>
+          <button id="button-2" class="btn btn-default colorButton" onclick="updateBackgroundColor('title-container', homepage.colorOptions[2])"></button>
+          <button id="button-3" class="btn btn-default colorButton" onclick="updateBackgroundColor('title-container', homepage.colorOptions[3])"></button>
+        </div>
+        <div class="col-sm-3 col-md-3"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3 col-md-3"></div>
+        <div class="col-sm-6 col-md-6 socket-cont">
+          <button class="btn btn-default" onclick="toggleConnection()">Toggle socket.io connection</button>
+          <br/>
+          <span>websocket connection status:</span>
+          <span id="io-status">&olcir;</span>
+        </div>
+        <div class="col-sm-3 col-md-3"></div>
+      </div>
+    </div>
+    <div id="footer" class="container-fluid"></div>
+  </div>
+  <script defer type="text/javascript" src="/scripts/app.js"></script>
 </body>
 </html>

@@ -67,6 +67,10 @@ sudo apt-get install -y build-essential
 sudo apt-get install -y upstart
 sudo apt-get install -y monit
 
+echo -e "\n######## install redis... ########\n"
+sudo apt-add-repository -y ppa:chris-lea/redis-server
+sudo apt-get -y install redis-server redis-tools
+
 echo "### Copying nginx files: ###"
 sudo cp /var/www/bootstrapping/nodeserver_nginx.conf /etc/nginx/sites-available/
 sudo rm /etc/nginx/sites-enabled/default

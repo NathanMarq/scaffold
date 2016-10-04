@@ -14,8 +14,7 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "angular": "^1.5.0",
-    "angular-route": "^1.5.0",
-    "bootstrap": "^3.3.5"
+    "bootstrap": "^3.3.5",
+    "socket.io-client": "^1.4.8"
   }
 }

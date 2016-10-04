@@ -10,21 +10,23 @@ module.exports = {
     "node": true
   },
   "globals": {
-    "angular": true
+    "Promise": true,
+    "ActiveXObject": true,
+    "AJAX": true,
+    "DOM": true,
+    "SOCKET": true,
+    "io": true
   },
   "plugins": [
     "html",
-    "json",
-    "angular"
+    "json"
   ],
   "extends": "eslint:recommended",
   "rules": {
 
     /**
-     * Rules that I don'think they should (or need to) be applied, bascially because
-     * we are writing in this way, or it's a matter of preference/environment.
-     * If everyone agrees, they will be removed when published
-     */
+     * General rules that are probably unnecessary:
+     **/
 
     // require return statements to either always or never specify values
     "consistent-return": 0,

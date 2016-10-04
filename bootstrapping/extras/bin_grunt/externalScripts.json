@@ -1,0 +1,5 @@
+[
+    "public_src/bower_components/jquery/dist/jquery.min.js",
+    "public_src/bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "public_src/bower_components/socket.io-client/socket.io.js"
+]

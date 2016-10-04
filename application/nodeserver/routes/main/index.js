@@ -10,12 +10,12 @@ module.exports.attachHandlers = (httpApp) => {
         try{
             response.setHeader('Content-Type', 'application/json');
             apiModel.getData(paramsObject, (results) => {
-                response.send(results);
+                response.status(200).send(results);
             });
         }
         catch (exception){
             logger.error(exception + '');
-            response.send(exception + '');
+            response.status(500).send(exception + '');
         }
     });
 };
