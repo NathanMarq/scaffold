@@ -2,7 +2,7 @@ const homepage = {
   colorOptions: [ '#002635', '#013440', '#AB1A25', '#D97925' ]
 };
 
-AJAX.get('/api/getData/title')
+AJAX.get('/api/homepage/title')
       .then((results) => {
         homepage.title = results.title;
         homepage.subtitle = results.subtitle;
@@ -41,25 +41,38 @@ var toggleConnection = () => {
   else{ SOCKET.connect(); }
 };
 
-SOCKET.on('connect', function(){
+SOCKET.on('connect', () => {
   var element = DOM.withID("io-status");
   element.style.color = "green";
   element.innerHTML = "&ofcir;&nbsp;good";
   homepage.socket = true;
 });
 
-SOCKET.on('disconnect', function(){
+SOCKET.on('disconnect', () => {
   var element = DOM.withID("io-status");
   element.style.color = "red";
   element.innerHTML = "&olcir;&nbsp;bad";
   homepage.socket = false;
 });
 
-SOCKET.on('reconnect', function(){
+SOCKET.on('reconnect', () => {
   var element = DOM.withID("io-status");
   element.style.color = "green";
   element.innerHTML = "&ofcir;&nbsp;good";
   homepage.socket = true;
+});
+
+SOCKET.on("message:down", (message) => {
+  const node = document.createElement("li");
+  const span = document.createElement("span");
+  node.appendChild(document.createTextNode(message.message));
+  span.appendChild(document.createTextNode(DOM.readableTime(new Date(message.time))));
+  node.appendChild(span);
+  DOM.conversation.appendChild(node);
+
+  if(DOM.conversation.autoScroll){
+    DOM.conversation.scrollTop = DOM.conversation.scrollHeight;
+  }
 });
 
 // now let's set up the other stuff:
@@ -74,3 +87,31 @@ updateContent('button-2', homepage.colorOptions[2]);
 updateContent('button-3', homepage.colorOptions[3]);
 
 DOM.withID("io-status").style.color = "red";
+
+DOM.on(window, "load", (loadEvent) => {
+  DOM.form = DOM.withID("message-form");
+  DOM.formInput = DOM.withID("message-input");
+  DOM.conversation = DOM.withID("message-stream");
+  DOM.conversation.autoScroll = true;
+
+  DOM.on(DOM.form, "submit", (submitEvent) => {
+    submitEvent.preventDefault();
+
+    SOCKET.emit("message:up", { message: DOM.formInput.value, time: Date.now() });
+    DOM.formInput.value = "";
+
+    return false;
+  });
+
+  DOM.on(DOM.conversation, "scroll", function(scrollEvent){
+    var scrollPos = DOM.conversation.scrollTop;
+    var actualHeight = DOM.conversation.scrollHeight;
+    var visibleHeight = DOM.conversation.clientHeight;
+
+    var pxFromBottom = ( actualHeight - visibleHeight ) - scrollPos;
+
+    DOM.conversation.autoScroll = (actualHeight > visibleHeight && pxFromBottom <= 20);
+
+  });
+
+});

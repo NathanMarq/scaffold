@@ -26,6 +26,9 @@ domain.run(() => {
 
   var httpApp = express();
 
+  var server = http.Server(httpApp);
+  var io = socketio(server);
+
   httpApp.set('port', config.get("server.port"));
 
   httpApp.use(compress()); //gzip support
@@ -49,11 +52,11 @@ domain.run(() => {
   httpApp.use(express.static(__dirname + '/../public'));
 
   // include all controllers
-  fs.readdirSync(__dirname + '/routes')
+  fs.readdirSync(__dirname + '/api')
     .forEach((file) => {
       if(file.substr(-3) !== '.js') {
-        var routers = require(__dirname + '/routes/' + file);
-        routers.attachHandlers(httpApp);
+        var routers = require(__dirname + '/api/' + file);
+        if(routers.attachRestHandlers){ routers.attachRestHandlers(httpApp); }
       }
     });
 
@@ -68,22 +71,35 @@ domain.run(() => {
 
   httpApp.use(function(req, res, next) { res.status(404).json({"error": "Oops! Page Not Found."}); });
 
-  // Now, let's set up all the socket.io stuff:
-  var server = http.Server(httpApp);
-  var io = socketio(server);
-
   io.use(function(socket, next){
     sessionMiddleware(socket.request, socket.request.res, next);
   });
 
   io.on('connection', function(socket){
     logger.info("socket.io client now connected!");
-    if(socket.request.headers.cookie){
+    if(socket.request){
       // Do whatever you want for initial connection to websocket
+
+      if(socket.request.headers.cookie){
+        // do some special stuff if cookies are enabled on the client
+      }
+
+      // then:
+      fs.readdirSync(__dirname + '/api')
+        .forEach((file) => {
+          if(file.substr(-3) !== '.js') {
+            var routers = require(__dirname + '/api/' + file);
+            if(routers.attachSocketHandlers){ routers.attachSocketHandlers(io, socket); }
+          }
+        });
     }
     else{
       socket.disconnect();
     }
+
+    socket.on('disconnect', function(){
+      logger.info('socket.io client now disconnected...');
+    });
   });
 
   server.listen(httpApp.get('port'), () => {

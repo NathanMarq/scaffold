@@ -69,14 +69,25 @@
       </div>
       <hr />
       <div class="row">
-        <div class="col-sm-3 col-md-3"></div>
         <div class="col-sm-6 col-md-6 socket-cont">
           <button class="btn btn-default" onclick="toggleConnection()">Toggle socket.io connection</button>
           <br/>
           <span>websocket connection status:</span>
           <span id="io-status">&olcir;</span>
         </div>
-        <div class="col-sm-3 col-md-3"></div>
+        <div class="col-sm-6 col-md-4 chat-container">
+          <ul id="message-stream" class="messages"></ul>
+
+          <form id="message-form">
+            <span class="input-group">
+              <input id="message-input" class="form-control" type="text" placeholder="type your message here"/>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Send</button>
+              </span>
+            </span>
+          </form>
+
+        </div>
       </div>
     </div>
     <div id="footer" class="container-fluid"></div>
