@@ -2,5 +2,41 @@
   "server": {
     "port": 8000,
     "secretstring": "superdupersecretstringLOL"
+  },
+  "database": {
+    "database": "defaultDatabase",
+    "username": "defaultDatabase",
+    "password": "CHANGEPASSWORD"
+  },
+
+  "user": {
+    "tableName": "users",
+    "failedLoginsWarning": 3,
+    "failedLoginAttempts": 5,
+    "accountLockedTime": "20 minutes",
+    "signup": {
+      "tokenExpiration": "1 day"
+    },
+    "forgotPassword": {
+      "tokenExpiration": "2 days"
+    }
+  },
+
+  "recaptcha": {
+    "privateKey": "recaptcha_private_key",
+    "publicKey": "recaptcha_public_key"
+  },
+
+  "emailSettings": {
+    "emailType": "nodemailer-smtp-transport",
+    "settings": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+          "user": "asdf@asdf.com",
+          "pass": "lololpass"
+      }
+    }
   }
 }

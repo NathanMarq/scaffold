@@ -12,10 +12,12 @@
     "cookie-parser": "^1.3.5",
     "express": "^4.14.0",
     "express-session": "^1.11.3",
+    "farmhash": "^2.1.0",
     "log4js": "^0.6.26",
     "method-override": "^2.3.6",
     "serve-favicon": "^2.3.0",
-    "socket.io": "^1.4.8"
+    "socket.io": "^2.1.1",
+    "socket.io-redis": "^5.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -52,7 +54,7 @@
     "babel:js": "./node_modules/babel-cli/bin/babel.js public_src/scripts/**/*.js public_src/scripts/main.js > ./bower_tmp/app.js;",
     "clean:js": "rm -rf bower_tmp;",
     "preconcat:js": "npm run clean:js && ./node_modules/bowcat/bowcat.js -o bower_tmp -m && npm run babel:js;",
-    "concat:js": "cat ./bower_tmp/build.js ./public_src/bower_components/socket.io-client/socket.io.js ./bower_tmp/app.js > public/scripts/app.js;",
+    "concat:js": "cat ./bower_tmp/build.js ./public_src/bower_components/socket.io-client/dist/socket.io.js ./bower_tmp/app.js > public/scripts/app.js;",
     "build": "npm run build:less; npm run build:js;",
     "build:less": "lessc public_src/styles/main.less public/styles/app.css;",
     "build:js": "npm run concat:js && uglifyjs public/scripts/app.js --compress --mangle -o public/scripts/app.js;"

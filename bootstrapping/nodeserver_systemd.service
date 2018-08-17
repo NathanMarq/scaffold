@@ -1,0 +1,24 @@
+[Unit]
+Description=Nodeserver
+#After=postgresql.service
+After=network.target
+
+[Service]
+ExecStartPre=/bin/sh -c 'echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/nodeserver.log'
+ExecStart=/bin/sh -c '/usr/local/bin/supervisor -w /var/www/application/nodeserver/api,/var/www/application/nodeserver/config,/var/www/application/nodeserver/server.js /var/www/application/nodeserver/server.js 2>&1 >> /var/log/nodeserver.log'
+
+# Required on some systems
+#WorkingDirectory=/opt/nodeserver
+Restart=on-failure
+Type=simple
+# Restart service after 10 seconds if node service crashes
+RestartSec=10
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nodeserver
+#User=<alternate user>
+#Group=<alternate group>
+
+[Install]
+WantedBy=multi-user.target
