@@ -23,7 +23,7 @@
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
     "bowcat": "^1.0.1",
-    "eslint": "^3.7.0",
+    "eslint": "^4.18.2",
     "eslint-plugin-html": "^1.5.1",
     "eslint-plugin-json": "^1.2.0",
     "less": "^2.7.1",
